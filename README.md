@@ -3,16 +3,17 @@
 This repository contains a record of my DevOps internship at Celebal Technologies. It documents my journey, including everything I have learned, the tasks I was assigned, and the corresponding outputs I have produced. The purpose of this repository is to showcase my progress and contributions during the internship period.
 #Contents ⬇️
 The repository is organized as follows:
-#➡️ Documentation
+
+##➡️ Documentation
 This directory holds all the important documentation related to the DevOps internship. It includes guides, tutorials, and any other relevant materials that I found useful throughout the internship.
 
-#➡️ Learning
+##➡️ Learning
 This directory contains subdirectories corresponding to different topics and concepts I have learned during the internship. Each subdirectory includes notes, code snippets, and references specific to that topic.
 
-#➡️ Tasks
+##➡️ Tasks
 This directory consists of the tasks I was assigned during the internship. Each task is contained in a separate subdirectory, labeled numerically or with a descriptive name.
 
-#Learning ⬇️
+##Learning ⬇️
 The "Learning" directory contains subdirectories for each topic or concept I studied during the internship. Some of the topics covered include:
 
 What is DevOps?
