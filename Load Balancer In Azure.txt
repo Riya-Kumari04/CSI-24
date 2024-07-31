@@ -1,0 +1,115 @@
+Project Steps to Configure Load Balancer in Azure
+Here’s a step-by-step guide to achieve your project objectives using the Azure portal:
+
+1. Create a Resource Group
+1. Sign in to the Azure portal.
+2. Navigate to "Resource groups."
+3. Click "Create."
+4. Enter the Resource group name (e.g., EcommercePlatformRG).
+5. Choose the appropriate region.
+6. Click "Review + create" and then "Create."
+
+2. Create a Virtual Network (VNet) and Subnets
+1. Navigate to "Virtual networks."
+2. Click "Create."
+3. Enter the following details:
+Name: EcommerceVNet
+Region: Same as the resource group
+4. Click on "IP Addresses" and add subnets:
+Resource Subnet:
+Name: ResourceSubnet
+Address range: 10.0.1.0/24
+Azure Bastion Subnet:
+Name: AzureBastionSubnet
+Address range: 10.0.2.0/24
+5. Click "Review + create" and then "Create."
+
+3. Create a NAT Gateway
+1. Navigate to "NAT gateways."
+2. Click "Create."
+3. Enter the following details:
+Name: EcommerceNATGateway
+Resource group: EcommercePlatformRG
+Region: Same as the VNet
+4. Assign a Public IP:
+Click "Public IP addresses" > "+ Add"
+Name: NATGatewayPublicIP
+SKU: Standard
+5. Click "OK"
+6. Under "Subnets," associate the NAT Gateway with the ResourceSubnet.
+7. Click "Review + create" and then "Create."
+
+4. Set Up Azure Bastion
+1. Navigate to "Bastions."
+2. Click "Create."
+3. Enter the following details:
+Name: EcommerceBastion
+Resource group: EcommercePlatformRG
+Virtual network: EcommerceVNet
+Subnet: AzureBastionSubnet
+4. Click "IP configuration" and create a new Public IP:
+Name: BastionPublicIP
+SKU: Standard
+Assignment: Static
+5. Click "Review + create" and then "Create."
+
+5. Create a Zone-Redundant Load Balancer
+1. Navigate to "Load balancers."
+2. Click "Create."
+3. Enter the following details:
+Name: EcommerceLB
+Region: Same as the resource group
+SKU: Standard
+Type: Public
+4. Click "Frontend IP configuration" and create a new Public IP:
+Name: LBPublicIP
+SKU: Standard
+Assignment: Static
+5. Click "Backend pools" and add a new backend pool:
+Name: EcommerceBackendPool
+Add the ResourceSubnet
+6. Click "Inbound rules" and create a new rule:
+Name: HTTPRule
+Port: 80
+Backend port: 80
+Health probe: Create a new health probe (Name: HTTPProbe, Protocol: HTTP, Port: 80)
+7. Click "Review + create" and then "Create."
+
+6. Create Virtual Machines (VMs)
+1. Navigate to "Virtual machines."
+2. Click "Create" > "Azure virtual machine."
+3. Enter the following details for the first VM:
+Name: lb-vm1
+Resource group: EcommercePlatformRG
+Region: Same as the resource group
+Availability options: Availability zone
+Zone: 1
+Image: Windows Server 2019 Datacenter
+Size: Standard_DS1_v2
+Username: azureuser
+Password: (your password)
+4. Under "Networking," choose:
+Virtual network: EcommerceVNet
+Subnet: ResourceSubnet
+Public IP: None
+5. Click "Review + create" and then "Create."
+6. Repeat the steps for the second VM (lb-vm2) but choose Zone 2.
+
+7. Install IIS on Both VMs
+1. Navigate to each VM and click "Connect" > "Bastion."
+2.Enter the username and password to connect.
+3. Once connected, open PowerShell and run the following command to install IIS:
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+8. Add VMs to Load Balancer Backend Pool
+1. Navigate to "Load balancers" > EcommerceLB > "Backend pools."
+2. Click on EcommerceBackendPool > "Add" > "Virtual machines."
+3. Select lb-vm1 and lb-vm2.
+4. Click "Save."
+
+9. Test the Load Balancer
+1. Obtain the Public IP address of the load balancer from the "Frontend IP configurations" tab.
+2. Open a web browser and navigate to the Public IP.
+3. You should see the default IIS web page.
+
+This setup will ensure your e-commerce platform can handle increased traffic with high availability and load distribution across multiple zones.
