@@ -168,9 +168,6 @@ az network nic ip-config address-pool add \
 LB_PUBLIC_IP=$(az network public-ip show --resource-group $RESOURCE_GROUP --name $LB_FRONTEND_IP --query 'ipAddress' --output tsv)
 echo "Load Balancer Public IP: $LB_PUBLIC_IP"
 
-
-
-
 Instructions:
 1. Copy and paste the above script into a text editor.
 2. Save the file with a .sh extension, e.g., setup_ecommerce_platform.sh.
@@ -180,20 +177,3 @@ Instructions:
 bash setup_ecommerce_platform.sh
 
 This script automates the creation of all necessary Azure resources, including the resource group, virtual network, NAT gateway, Bastion host, load balancer, and virtual machines. It also installs IIS on the VMs and adds them to the load balancer's backend pool. After the script completes, it outputs the public IP address of the load balancer, which you can use to verify the setup by accessing the IIS default page.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
