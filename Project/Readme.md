@@ -1,7 +1,7 @@
--Project Folder
+# Project Folder
 #!/bin/bash
 
-# Variables
+## Variables
 RESOURCE_GROUP="EcommercePlatformRG"
 LOCATION="eastus"
 VNET_NAME="EcommerceVNet"
@@ -26,10 +26,10 @@ VM2_NAME="lb-vm2"
 ZONE1="1"
 ZONE2="2"
 
-# Create Resource Group
+## Create Resource Group
 az group create --name $RESOURCE_GROUP --location $LOCATION
 
-# Create Virtual Network and Subnets
+## Create Virtual Network and Subnets
 az network vnet create \
   --name $VNET_NAME \
   --resource-group $RESOURCE_GROUP \
@@ -43,7 +43,7 @@ az network vnet subnet create \
   --resource-group $RESOURCE_GROUP \
   --vnet-name $VNET_NAME
 
-# Create NAT Gateway and Public IP
+## Create NAT Gateway and Public IP
 az network public-ip create \
   --resource-group $RESOURCE_GROUP \
   --name $NAT_GATEWAY_PUBLIC_IP \
@@ -75,7 +75,7 @@ az network bastion create \
   --vnet-name $VNET_NAME \
   --public-ip-address $BASTION_PUBLIC_IP
 
-# Create Load Balancer and Public IP
+## Create Load Balancer and Public IP
 az network public-ip create \
   --resource-group $RESOURCE_GROUP \
   --name $LB_FRONTEND_IP \
@@ -115,7 +115,7 @@ az network lb rule create \
   --backend-pool-name $LB_BACKEND_POOL \
   --probe-name $HEALTH_PROBE_NAME
 
-# Create Virtual Machines
+## Create Virtual Machines
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM1_NAME \
@@ -138,7 +138,7 @@ az vm create \
   --size $VM_SIZE \
   --zone $ZONE2
 
-# Install IIS on Both VMs
+## Install IIS on Both VMs
 az vm run-command invoke \
   --resource-group $RESOURCE_GROUP \
   --name $VM1_NAME \
@@ -151,7 +151,7 @@ az vm run-command invoke \
   --command-id RunPowerShellScript \
   --scripts "Install-WindowsFeature -name Web-Server -IncludeManagementTools"
 
-# Add VMs to Load Balancer Backend Pool
+## Add VMs to Load Balancer Backend Pool
 az network nic ip-config address-pool add \
   --address-pool $LB_BACKEND_POOL \
   --ip-config-name ipconfig1 \
@@ -166,7 +166,7 @@ az network nic ip-config address-pool add \
   --resource-group $RESOURCE_GROUP \
   --lb-name $LB_NAME
 
-# Output the Load Balancer Public IP for Testing
+## Output the Load Balancer Public IP for Testing
 LB_PUBLIC_IP=$(az network public-ip show --resource-group $RESOURCE_GROUP --name $LB_FRONTEND_IP --query 'ipAddress' --output tsv)
 echo "Load Balancer Public IP: $LB_PUBLIC_IP"
 
