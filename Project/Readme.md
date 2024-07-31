@@ -26,10 +26,10 @@ VM2_NAME="lb-vm2"
 ZONE1="1"
 ZONE2="2"
 
-## Create Resource Group
+## Step 1: Create Resource Group
 az group create --name $RESOURCE_GROUP --location $LOCATION
 
-## Create Virtual Network and Subnets
+## Step 2: Create Virtual Network and Subnets
 az network vnet create \
   --name $VNET_NAME \
   --resource-group $RESOURCE_GROUP \
@@ -62,7 +62,7 @@ az network vnet subnet update \
   --name ResourceSubnet \
   --nat-gateway $NAT_GATEWAY_NAME
 
-# Create Azure Bastion
+## Step 3: Create Azure Bastion
 az network public-ip create \
   --resource-group $RESOURCE_GROUP \
   --name $BASTION_PUBLIC_IP \
@@ -75,7 +75,7 @@ az network bastion create \
   --vnet-name $VNET_NAME \
   --public-ip-address $BASTION_PUBLIC_IP
 
-## Create Load Balancer and Public IP
+## Step 4: Create Load Balancer and Public IP
 az network public-ip create \
   --resource-group $RESOURCE_GROUP \
   --name $LB_FRONTEND_IP \
@@ -115,7 +115,7 @@ az network lb rule create \
   --backend-pool-name $LB_BACKEND_POOL \
   --probe-name $HEALTH_PROBE_NAME
 
-## Create Virtual Machines
+## Step 4: Create Virtual Machines
 az vm create \
   --resource-group $RESOURCE_GROUP \
   --name $VM1_NAME \
@@ -138,7 +138,7 @@ az vm create \
   --size $VM_SIZE \
   --zone $ZONE2
 
-## Install IIS on Both VMs
+## Step 5: Install IIS on Both VMs
 az vm run-command invoke \
   --resource-group $RESOURCE_GROUP \
   --name $VM1_NAME \
