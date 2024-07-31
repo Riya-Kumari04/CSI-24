@@ -1,9 +1,0 @@
-# **Project Steps to Configure Load Balancer in Azure**💻
-Here’s a step-by-step guide to achieve your project objectives using the Azure portal:
-1. Create a Resource Group
-- Sign in to the Azure portal.
-- Navigate to "Resource groups."
-- Click "Create."
-- Enter the Resource group name (e.g., EcommercePlatformRG).
-- Choose the appropriate region.
-- Click "Review + create" and then "Create."
