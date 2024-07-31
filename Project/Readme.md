@@ -1,4 +1,5 @@
-# Project Folder
+# Project Steps to Configure Load Balancer in Azure
+## Here’s a step-by-step guide to achieve your project objectives using the Azure CLI or Azure Cloud Shell on your local machine:
 #!/bin/bash
 
 ## Variables
