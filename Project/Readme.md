@@ -1,4 +1,4 @@
-# Project Folder
+-Project Folder
 #!/bin/bash
 
 # Variables
